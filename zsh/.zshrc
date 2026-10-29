@@ -5,7 +5,17 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source /usr/share/cachyos-zsh-config/cachyos-config.zsh
+export ZSH="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/oh-my-zsh"
+[[ -r "$ZSH/oh-my-zsh.sh" ]] || ZSH=/usr/share/oh-my-zsh
+ZSH_THEME=""
+plugins=(git)
+[[ ! -r "$ZSH/oh-my-zsh.sh" ]] || source "$ZSH/oh-my-zsh.sh"
+
+if [[ -r "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/powerlevel10k/powerlevel10k.zsh-theme" ]]; then
+  source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/powerlevel10k/powerlevel10k.zsh-theme"
+elif [[ -r /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
+  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+fi
 
 export PATH="$HOME/.dotnet/tools:$PATH"
 
@@ -34,3 +44,4 @@ export LS_COLORS="${LS_COLORS}:ow=01;34:tw=01;34:st=01;34"
 alias ls='eza --group-directories-first --icons=auto'
 alias ll='eza --long --group-directories-first --icons=auto'
 alias tree='eza --tree --level=2 --group-directories-first --icons=auto'
+alias lg='lazygit'
